@@ -12,6 +12,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -62,12 +64,12 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public ItemDTO getItemsByUser(String userId) throws ItemException {
-        Item item = findByUser(userId);
-        return itemMapper.prepareItemDTO(item);
+    public List<ItemDTO> getItemsByUser(String userId) throws ItemException {
+        List<Item> item = findByUser(userId);
+        return item.stream().map(item1 -> itemMapper.prepareItemDTO(item1)).collect(Collectors.toList());
     }
 
-    private Item findByUser(String userId) throws ItemException {
+    private List<Item> findByUser(String userId) throws ItemException {
         return itemRepo.findByAddedBy(userId).orElseThrow(() -> new ItemException(env.getProperty(ItemConstants.USER_NOT_FOUND.getType())));
     }
 

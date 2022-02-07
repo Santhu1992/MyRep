@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -40,7 +41,7 @@ public class ItemController {
     }
 
     @GetMapping(path = "user/{userId}")
-    public ResponseEntity<ItemDTO> getItemByUser(@PathVariable("userId") String userId) throws ItemException{
+    public ResponseEntity<List<ItemDTO>> getItemByUser(@PathVariable("userId") String userId) throws ItemException{
         return ResponseEntity.ok(itemService.getItemsByUser(userId));
     }
 

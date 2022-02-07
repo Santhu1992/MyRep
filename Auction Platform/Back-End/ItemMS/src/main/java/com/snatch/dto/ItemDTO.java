@@ -10,7 +10,7 @@ public class ItemDTO {
 
     private Integer itemId;
     @NotNull
-    @Pattern(regexp = "[a-zA-Z ]{3,50}")
+    @Pattern(regexp = "[a-zA-Z0-9 ]{3,50}")
     private String itemName;
     @NotNull
     private String itemUrl;
