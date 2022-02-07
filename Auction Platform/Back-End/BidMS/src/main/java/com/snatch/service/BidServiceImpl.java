@@ -113,7 +113,7 @@ public class BidServiceImpl implements BidService{
     }
 
     private ItemDTO getItem(Integer itemId) {
-        return itemServiceTemplate.getForObject("http://localhost:8081/item/"+itemId,ItemDTO.class);
+        return itemServiceTemplate.getForObject("http://ITEMMS/item/"+itemId,ItemDTO.class);
     }
 
 
@@ -144,20 +144,20 @@ public class BidServiceImpl implements BidService{
                 map.put("itemId", String.valueOf(itemId));
                 map.put("userId", highestBid.get().getBidderId());
                 map.put("buyOutPrice", String.valueOf(highestBid.get().getBidPrice()));
-                itemServiceTemplate.postForEntity("http://localhost:8081/item/buyout", map, Boolean.class);
+                itemServiceTemplate.postForEntity("http://ITEMMS/item/buyout", map, Boolean.class);
                 return highestBid.get();
             }
             else{
                 Map<String, String> map = new HashMap<>();
                 map.put("itemId",String.valueOf(itemId));
-                itemServiceTemplate.postForEntity("http://localhost:8081/item/terminateauction",map, Boolean.class);
+                itemServiceTemplate.postForEntity("http://ITEMMS/item/terminateauction",map, Boolean.class);
                 throw new ItemException("current bid did not reach reserve price item moved to house");
             }
         }
         else{
             Map<String, String> map = new HashMap<>();
             map.put("itemId",String.valueOf(itemId));
-            itemServiceTemplate.postForEntity("http://localhost:8081/item/terminateauction",map, Boolean.class);
+            itemServiceTemplate.postForEntity("http://ITEMMS/item/terminateauction",map, Boolean.class);
             throw new ItemException("no bid received during auction so auction closed");
         }
     }
@@ -171,7 +171,7 @@ public class BidServiceImpl implements BidService{
             map.put("itemId", String.valueOf(itemId));
             map.put("userId",userId);
             map.put("buyOutPrice", String.valueOf(hammerPrice));
-            itemServiceTemplate.postForEntity("http://localhost:8081/item/buyout",map,Boolean.class);
+            itemServiceTemplate.postForEntity("http://ITEMMS:8081/item/buyout",map,Boolean.class);
             return bidTransactionDTO;
         }
         else{

@@ -2,15 +2,15 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: user
-          uri: http://localhost:8083/
+        - id: USERMS
+          uri: lb://USERMS
           predicates:
             - Path=/user/**
-        - id: bid
-          uri: http://localhost:8082/
+        - id: BIDMS
+          uri: lb://BIDMS
           predicates:
             - Path=/bid/**
-        - id: item
-          uri: http://localhost:8081/
+        - id: ITEMMS
+          uri: lb://ITEMMS
           predicates:
             - Path=/item/**
